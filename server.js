@@ -15,7 +15,8 @@ mongoose.connect('mongodb://localhost/todo');
 
 // define model =================
 var Todo = mongoose.model('Todo', {
-	text : String
+	text : String,
+	del_flag : Boolean
 });
 
 // ROUTES =================
@@ -58,7 +59,7 @@ app.post('/create/todos', function(req, res) {
 
 // delete a todo
 app.delete('/del/todos/:todo_id', function(req, res) {
-	Todo.remove({
+	Todo.update({
 		_id : req.params.todo_id
 	}, function(err, todo) {
 		if (err)
